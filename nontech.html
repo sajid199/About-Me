@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAP Interview — Non-Technical Q&A</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e17;
+    --ink2: #2e2d3d;
+    --muted: #6b6a7d;
+    --light: #f4f3f0;
+    --card: #ffffff;
+    --border: rgba(15,14,23,0.1);
+
+    --purple: #534AB7;
+    --purple-bg: #EEEDFE;
+    --purple-mid: #7F77DD;
+    --purple-dark: #3C3489;
+
+    --teal: #0F6E56;
+    --teal-bg: #E1F5EE;
+    --teal-dark: #085041;
+
+    --blue: #185FA5;
+    --blue-bg: #E6F1FB;
+    --blue-dark: #0C447C;
+
+    --amber: #854F0B;
+    --amber-bg: #FAEEDA;
+    --amber-dark: #633806;
+
+    --coral: #993C1D;
+    --coral-bg: #FAECE7;
+    --coral-dark: #712B13;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--light);
+    color: var(--ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    padding: 2.5rem 1.25rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: rgba(83,74,183,0.18);
+    top: -80px; right: -70px;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(127,119,221,0.10);
+    bottom: -50px; left: -40px;
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--purple-mid);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(24px, 6vw, 36px);
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .hero-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    max-width: 420px;
+  }
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.09);
+    border: 0.5px solid rgba(255,255,255,0.18);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+  }
+  .hero-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 1rem;
+    padding: 0.85rem 1.3rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.22);
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    transition: transform 0.18s ease, background 0.18s ease;
+  }
+  .hero-link:hover {
+    background: rgba(255,255,255,0.16);
+    transform: translateY(-1px);
+  }
+  .hero-link::after {
+    content: '→';
+    font-size: 13px;
+  }
+  .dot { width: 6px; height: 6px; border-radius: 50%; }
+  .dot-green { background: #5DCAA5; }
+
+  /* ── STATS ROW ── */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 1.25rem 1.25rem 0;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .stat {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 14px 12px;
+    border: 0.5px solid var(--border);
+    text-align: center;
+  }
+  .stat-n {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--purple);
+    line-height: 1;
+  }
+  .stat-l { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* ── MAIN LAYOUT ── */
+  .main {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 1.25rem;
+  }
+
+  /* ── FILTERS ── */
+  .filter-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .filter-label::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 1.25rem;
+  }
+  .chip {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 0.5px solid var(--border);
+    background: var(--card);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  .chip:active { transform: scale(0.97); }
+  .chip.active-all  { background: var(--purple-bg);  color: var(--purple-dark); border-color: rgba(83,74,183,0.25); }
+  .chip.active-team    { background: var(--purple-bg);  color: var(--purple-dark); border-color: rgba(83,74,183,0.25); }
+  .chip.active-version { background: var(--teal-bg);    color: var(--teal-dark);   border-color: rgba(15,110,86,0.25); }
+  .chip.active-project { background: var(--blue-bg);    color: var(--blue-dark);   border-color: rgba(24,95,165,0.25); }
+  .chip.active-personal{ background: var(--amber-bg);   color: var(--amber-dark);  border-color: rgba(133,79,11,0.25); }
+  .chip.active-process { background: var(--coral-bg);   color: var(--coral-dark);  border-color: rgba(153,60,29,0.25); }
+
+  /* ── COUNT ── */
+  .count-bar {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    padding-left: 2px;
+  }
+
+  /* ── Q&A CARDS ── */
+  .qa-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .qa-card {
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .qa-card.is-open {
+    border-color: rgba(83,74,183,0.2);
+  }
+
+  .qa-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  .qa-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--border);
+    line-height: 1;
+    flex-shrink: 0;
+    min-width: 22px;
+    margin-top: 1px;
+    transition: color 0.2s;
+  }
+  .qa-card.is-open .qa-num { color: var(--purple-mid); }
+
+  .qa-head-content { flex: 1; min-width: 0; }
+  .qa-q {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.5;
+    margin-bottom: 5px;
+  }
+  .qa-cat {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+  .cat-team    { background: var(--purple-bg); color: var(--purple-dark); }
+  .cat-version { background: var(--teal-bg);   color: var(--teal-dark); }
+  .cat-project { background: var(--blue-bg);   color: var(--blue-dark); }
+  .cat-personal{ background: var(--amber-bg);  color: var(--amber-dark); }
+  .cat-process { background: var(--coral-bg);  color: var(--coral-dark); }
+
+  .qa-toggle {
+    font-size: 20px;
+    line-height: 1;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: transform 0.25s ease, color 0.2s;
+    margin-top: 2px;
+  }
+  .qa-card.is-open .qa-toggle {
+    transform: rotate(45deg);
+    color: var(--purple);
+  }
+
+  /* Animated body */
+  .qa-body-wrap {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .qa-body {
+    padding: 0 16px 16px 16px;
+    border-top: 0.5px solid var(--border);
+  }
+  .qa-section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--purple);
+    text-transform: uppercase;
+    margin: 14px 0 6px;
+  }
+  .qa-answer {
+    font-size: 13.5px;
+    color: var(--ink2);
+    line-height: 1.8;
+  }
+  .qa-tip {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: var(--light);
+    border-left: 3px solid var(--purple-mid);
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .qa-tip strong {
+    color: var(--purple-dark);
+    font-weight: 600;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 2rem 1.25rem;
+    font-size: 12px;
+    color: var(--muted);
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* ── RESPONSIVE TWEAKS ── */
+  @media (max-width: 400px) {
+    .stats { grid-template-columns: repeat(3, 1fr); }
+    .stat-n { font-size: 22px; }
+    .stat-l { font-size: 10px; }
+    .hero-title { font-size: 22px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .qa-body-wrap, .qa-toggle, .qa-num { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Interview Preparation</div>
+    <h1 class="hero-title">Non-Technical Q&amp;A</h1>
+    <p class="hero-sub">Common HR and situational questions with ready-to-use answers — tailored for Sajid Ahmad, SAP Security &amp; GRC Consultant.</p>
+    <div class="hero-badges">
+      <span class="hero-badge"><span class="dot dot-green"></span> 18 Questions</span>
+      <span class="hero-badge">5 Categories</span>
+      <span class="hero-badge">Capgemini · GE Vernova · Herff Jones</span>
+    </div>
+    <a class="hero-link" href="Index.html">Back to homepage</a>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-n">5+</div>
+    <div class="stat-l">Years exp.</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n">4+</div>
+    <div class="stat-l">SAP Security</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n">4</div>
+    <div class="stat-l">GRC modules</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <div style="margin-top:1.25rem">
+    <div class="filter-label">Filter by category</div>
+    <div class="filters" id="filters">
+      <span class="chip active-all" data-cat="all">All (18)</span>
+      <span class="chip" data-cat="team">Team &amp; size</span>
+      <span class="chip" data-cat="version">SAP version</span>
+      <span class="chip" data-cat="project">Project context</span>
+      <span class="chip" data-cat="personal">About you</span>
+      <span class="chip" data-cat="process">Process &amp; work style</span>
+    </div>
+  </div>
+
+  <div class="count-bar" id="count-bar">Showing all 18 questions — tap any to expand</div>
+  <div class="qa-list" id="qa-list"></div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Prepared for Sajid Ahmad · SAP Security &amp; GRC Consultant · Capgemini
+</div>
+
+<script>
+const data = [
+  {
+    cat: "team", catLabel: "Team & size", n: 1,
+    q: "How many people were in your security team?",
+    a: "At GE Vernova, our SAP Security team has around 4 to 5 members. I work closely with the lead consultant, one more security analyst, and we coordinate with the Basis team and functional consultants as needed. At Herff Jones it was a smaller setup — mostly 2 to 3 people handling security end to end.",
+    tip: "Keep it real and simple. Don't over-inflate or under-sell. Mention coordination with Basis as it shows you understand how teams work together."
+  },
+  {
+    cat: "team", catLabel: "Team & size", n: 2,
+    q: "How many Basis team members did you work with?",
+    a: "The Basis team at GE Vernova had around 3 to 4 members. I regularly coordinated with them for transport management, system refresh, role imports, and system access setup. They handled the infrastructure side and we collaborated on anything that crossed security and system administration.",
+    tip: "Interviewers ask this to see if you understand the Basis-Security boundary. Show you know where your work ends and theirs begins."
+  },
+  {
+    cat: "team", catLabel: "Team & size", n: 3,
+    q: "Did you work in an onshore or offshore model?",
+    a: "We followed a hybrid model. The core project team was onshore at the client side, while support activities were handled offshore. I worked from the offshore side, collaborating with onshore leads through daily calls, ticketing tools, and shared documentation.",
+    tip: "This is very common at Capgemini. Mention your coordination style — calls, tickets, documentation — to show you handled the time zone and communication gap well."
+  },
+  {
+    cat: "team", catLabel: "Team & size", n: 4,
+    q: "How many end users did you support?",
+    a: "At GE Vernova, the user base is quite large — we supported several thousand users across multiple business units. User access requests, role assignments, and user maintenance were handled through the GRC ARM workflow, so the process was structured and auditable.",
+    tip: "You don't need an exact number. 'Several thousand' sounds confident. Mentioning GRC ARM shows the process was mature and not just manual."
+  },
+  {
+    cat: "version", catLabel: "SAP version", n: 5,
+    q: "Which version of SAP have you worked on?",
+    a: "I have worked on both SAP ECC 6.0 and S/4HANA 2021. At Herff Jones it was primarily ECC, and at GE Vernova I am working on S/4HANA. So I have experience with both the traditional authorization model and the newer Fiori-based security approach in S/4HANA.",
+    tip: "Mention both if true. Interviewers love candidates who bridge ECC and S/4HANA. Always pair the version with the project so it sounds real."
+  },
+  {
+    cat: "version", catLabel: "SAP version", n: 6,
+    q: "Which version of SAP GRC have you used?",
+    a: "I have worked on SAP GRC Access Control version 12.0. This is the current standard version that supports the full ARA, ARM, EAM, and BRM suite. It runs on the HANA platform and integrates with both ECC and S/4HANA systems.",
+    tip: "GRC 12.0 is the safe, accurate answer for recent projects. If asked about older versions, you can mention GRC 10.1 as something you have read about or seen in documentation."
+  },
+  {
+    cat: "version", catLabel: "SAP version", n: 7,
+    q: "Which SAP Fiori version or launchpad version have you worked on?",
+    a: "I have worked on the SAP Fiori 3.0 design theme with the standard Fiori launchpad available in S/4HANA 2021. This includes catalog and group-based navigation, tile configuration, and OData service authorization. I have also worked on spaces and pages, which is the newer navigation model replacing catalogs and groups.",
+    tip: "Mention both catalog/group (older) and spaces/pages (newer) — it shows you know the transition that happened in S/4HANA 2020 and later."
+  },
+  {
+    cat: "project", catLabel: "Project context", n: 8,
+    q: "What kind of project were you working on — implementation or support?",
+    a: "I have experience in both. At Herff Jones it was an SAP Security implementation project where I was involved from the beginning — building roles, setting up GRC, and configuring Fiori. At GE Vernova I am in a support role, handling ongoing user access, role changes, audit requirements, and day-to-day security requests.",
+    tip: "This is a great chance to show range. Many candidates only have one type — you have both, which is a strength."
+  },
+  {
+    cat: "project", catLabel: "Project context", n: 9,
+    q: "How did you handle transport management in your project?",
+    a: "We followed a standard three-system landscape — DEV, QAS, and PRD. Role changes were made in DEV, tested in QAS, and after sign-off the transports were moved to PRD by the Basis team. I was responsible for creating role transports, documenting the changes, and coordinating with Basis for the release window.",
+    tip: "Even if transports were handled by Basis, show you understood the process and your part in it. Interviewers want to know you did not just do DEV work."
+  },
+  {
+    cat: "project", catLabel: "Project context", n: 10,
+    q: "Did you work directly with clients or through a project manager?",
+    a: "In the support project at GE Vernova, most communication happened through a project lead or SAP security lead who bridged us with the client. However, for audit-related queries and access reviews, I have directly coordinated with client compliance teams to provide the required reports and documentation.",
+    tip: "Show maturity — you followed the right communication channel but were not completely shielded from the client. Direct compliance interaction adds weight."
+  },
+  {
+    cat: "project", catLabel: "Project context", n: 11,
+    q: "What system landscape did your project use?",
+    a: "We followed a standard three-tier SAP system landscape — DEV for development and role creation, QAS for testing and user acceptance, and PRD for production. All changes followed a proper change management process with transport requests and sign-offs before moving to production.",
+    tip: "Even if obvious, always say DEV-QAS-PRD out loud in interviews. It confirms you have worked in a properly governed environment."
+  },
+  {
+    cat: "personal", catLabel: "About you", n: 12,
+    q: "Why do you want to leave your current organization?",
+    a: "I have had a great learning experience at Capgemini and I value what I built here. I am now looking for an opportunity that gives me deeper exposure to S/4HANA security and GRC, ideally in a role where I can take more ownership and grow into a senior consultant. I feel ready for that next level of responsibility.",
+    tip: "Never mention money first, never speak negatively about your current employer. Keep it growth-focused and forward-looking."
+  },
+  {
+    cat: "personal", catLabel: "About you", n: 13,
+    q: "What is your notice period?",
+    a: "My notice period is 60 days, but I can discuss early release depending on the project situation. I want to ensure a smooth transition for my current team as well.",
+    tip: "If your actual notice period differs, adjust accordingly. Always add the 'smooth transition' line — it shows professionalism."
+  },
+  {
+    cat: "personal", catLabel: "About you", n: 14,
+    q: "Where do you see yourself in 3 to 5 years?",
+    a: "In the next 3 to 5 years I would like to grow into a senior SAP Security and GRC consultant role where I am leading security design decisions and mentoring junior team members. I also want to strengthen my expertise in S/4HANA and possibly expand into related areas like Identity Access Governance or cloud security.",
+    tip: "Show ambition but keep it realistic and relevant to the SAP security path. Mentioning mentoring shows leadership potential."
+  },
+  {
+    cat: "personal", catLabel: "About you", n: 15,
+    q: "What is your biggest strength in SAP Security?",
+    a: "My biggest strength is authorization troubleshooting. I am very comfortable using SU53, ST01, and STAUTHTRACE to quickly identify and resolve access issues. I also have a good understanding of how authorizations work across Fiori and backend systems, which helps me troubleshoot end to end without needing to go back and forth too many times.",
+    tip: "Pick a real strength and give a concrete tool or method that proves it. Do not just say 'I am a hard worker' — that is too vague."
+  },
+  {
+    cat: "process", catLabel: "Process & work style", n: 16,
+    q: "How do you handle SoD conflicts raised by GRC?",
+    a: "When GRC raises an SoD conflict, first I check whether it is a critical risk or informational. If critical, I work with the business to understand if there is a valid business justification. If not, I recommend role redesign or splitting the conflicting functions. If the business needs temporary access, I help set up a mitigation control through GRC and document it properly for audit purposes.",
+    tip: "This shows you understand the full SoD resolution cycle — not just flagging but also mitigating and documenting. Audit documentation is a big deal."
+  },
+  {
+    cat: "process", catLabel: "Process & work style", n: 17,
+    q: "How do you prioritize your work when you have multiple requests?",
+    a: "I follow the ticket priority set in our ITSM tool — P1 and P2 issues like production access blockers get immediate attention. For other requests, I coordinate with the team lead to sequence them. I also try to batch similar tasks, like user creations or role assignments, to handle them more efficiently.",
+    tip: "Mention a tool or system (ITSM, ServiceNow, Jira) — it shows you work in a structured environment. Prioritization without a system sounds ad hoc."
+  },
+  {
+    cat: "process", catLabel: "Process & work style", n: 18,
+    q: "How do you handle a situation where a user says they had access before but don't have it now?",
+    a: "First I check the user's current role assignments and compare with what the role should contain. Then I use SU53 to see exactly which authorization object is failing. I also check if there was a recent transport or role change that may have caused it. If I find the issue, I fix it in the proper channel — raise a change request, get approval, and apply the fix.",
+    tip: "This is a very common real scenario question. Walk through your actual thought process step by step — SU53, role check, transport check. It shows you do not just guess."
+  }
+];
+
+const catClassMap = {
+  team: 'cat-team', version: 'cat-version',
+  project: 'cat-project', personal: 'cat-personal', process: 'cat-process'
+};
+
+const catCounts = {};
+data.forEach(d => { catCounts[d.cat] = (catCounts[d.cat] || 0) + 1; });
+
+let activeFilter = 'all';
+
+function render() {
+  const filtered = activeFilter === 'all' ? data : data.filter(d => d.cat === activeFilter);
+  const count = filtered.length;
+  const total = data.length;
+  document.getElementById('count-bar').textContent =
+    activeFilter === 'all'
+      ? `Showing all ${total} questions — tap any to expand`
+      : `Showing ${count} of ${total} questions`;
+
+  const list = document.getElementById('qa-list');
+  list.innerHTML = '';
+
+  filtered.forEach((item, idx) => {
+    const card = document.createElement('div');
+    card.className = 'qa-card';
+    card.dataset.idx = idx;
+
+    card.innerHTML = `
+      <div class="qa-head">
+        <div class="qa-num">${String(item.n).padStart(2,'0')}</div>
+        <div class="qa-head-content">
+          <div class="qa-q">${item.q}</div>
+          <span class="qa-cat ${catClassMap[item.cat]}">${item.catLabel}</span>
+        </div>
+        <div class="qa-toggle">+</div>
+      </div>
+      <div class="qa-body-wrap">
+        <div class="qa-body">
+          <div class="qa-section-label">How to answer</div>
+          <div class="qa-answer">${item.a}</div>
+          <div class="qa-tip"><strong>Tip:</strong> ${item.tip}</div>
+        </div>
+      </div>
+    `;
+
+    const head = card.querySelector('.qa-head');
+    const bodyWrap = card.querySelector('.qa-body-wrap');
+    const body = card.querySelector('.qa-body');
+
+    head.addEventListener('click', () => {
+      const isOpen = card.classList.contains('is-open');
+      // close all
+      document.querySelectorAll('.qa-card.is-open').forEach(c => {
+        c.classList.remove('is-open');
+        c.querySelector('.qa-body-wrap').style.maxHeight = '0';
+      });
+      if (!isOpen) {
+        card.classList.add('is-open');
+        bodyWrap.style.maxHeight = body.scrollHeight + 32 + 'px';
+      }
+    });
+
+    list.appendChild(card);
+  });
+}
+
+// Chip filter chips label update
+const chipLabels = {
+  all: `All (${data.length})`,
+  team: `Team & size (${catCounts.team || 0})`,
+  version: `SAP version (${catCounts.version || 0})`,
+  project: `Project context (${catCounts.project || 0})`,
+  personal: `About you (${catCounts.personal || 0})`,
+  process: `Process & work style (${catCounts.process || 0})`
+};
+
+document.querySelectorAll('.chip').forEach(chip => {
+  const cat = chip.dataset.cat;
+  chip.textContent = chipLabels[cat] || chip.textContent;
+});
+
+document.getElementById('filters').addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  activeFilter = chip.dataset.cat;
+  document.querySelectorAll('.chip').forEach(c => {
+    c.className = 'chip';
+    if (c.dataset.cat === activeFilter) {
+      c.classList.add('active-' + activeFilter);
+    }
+  });
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
