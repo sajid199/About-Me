@@ -3,503 +3,615 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sajid Ahmad — SAP Security Consultant</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Sajid Ahmad — SAP Security & GRC Consultant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ink: #0f0e17;
-    --ink2: #2e2d3d;
-    --muted: #6b6a7d;
-    --light: #f4f3f0;
-    --card: #ffffff;
-    --purple: #534AB7;
-    --purple-light: #EEEDFE;
-    --purple-mid: #7F77DD;
-    --teal: #0F6E56;
-    --teal-light: #E1F5EE;
-    --amber: #854F0B;
-    --amber-light: #FAEEDA;
-    --blue: #185FA5;
-    --blue-light: #E6F1FB;
-    --border: rgba(15,14,23,0.1);
+  :root{
+    --bg: #12161b;
+    --surface: #1a2027;
+    --surface-raised: #212832;
+    --line: #2b333d;
+    --gold: #c9a227;
+    --gold-soft: rgba(201,162,39,0.14);
+    --teal: #4fa9a8;
+    --teal-soft: rgba(79,169,168,0.14);
+    --text: #e9e7e0;
+    --text-mute: #909aa8;
+    --text-faint: #5c6673;
+    --radius: 3px;
+    --display: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--light);
-    color: var(--ink);
-    min-height: 100vh;
-    padding-bottom: 3rem;
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--display);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
   }
-  .hero {
-    background: var(--ink);
-    padding: 2.5rem 1.25rem 2rem;
-    position: relative;
-    overflow: hidden;
+
+  a { color: inherit; }
+
+  ::selection{ background: var(--gold-soft); color: var(--gold); }
+
+  /* ---------- background matrix texture ---------- */
+  .matrix-field{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.5;
   }
-  .hero::before {
-    content: '';
-    position: absolute;
-    width: 220px; height: 220px;
-    border-radius: 50%;
-    background: rgba(83,74,183,0.18);
-    top: -60px; right: -60px;
-  }
-  .hero::after {
-    content: '';
-    position: absolute;
-    width: 140px; height: 140px;
-    border-radius: 50%;
-    background: rgba(127,119,221,0.10);
-    bottom: -40px; left: -30px;
-  }
-  .hero-inner {
+
+  /* ---------- layout shell ---------- */
+  .wrap{
     position: relative;
     z-index: 1;
-    max-width: 680px;
+    max-width: 980px;
     margin: 0 auto;
+    padding: 0 28px;
   }
-  .avatar {
-    width: 76px; height: 76px;
-    border-radius: 50%;
-    background: var(--purple-mid);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 24px; font-weight: 600; color: #fff;
-    border: 3px solid rgba(255,255,255,0.15);
-    margin-bottom: 1rem;
+
+  header.top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 28px 0 0;
+    position: relative;
+    z-index: 2;
   }
-  .hero-name {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(32px, 5vw, 44px);
-    color: #fff;
-    line-height: 1.05;
-    margin-bottom: 6px;
+  .badge-id{
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
+    display:flex;
+    align-items:center;
+    gap:8px;
   }
-  .hero-role {
-    font-size: 14px;
-    color: rgba(255,255,255,0.75);
-    letter-spacing: 0.06em;
-    margin-bottom: 1rem;
+  .badge-id .dot{
+    width:6px; height:6px; border-radius:50%;
+    background: var(--teal);
+    box-shadow: 0 0 8px var(--teal);
   }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: rgba(255,255,255,0.12);
-    border: 0.5px solid rgba(255,255,255,0.2);
-    border-radius: 20px;
-    padding: 6px 14px;
-    font-size: 12px; color: rgba(255,255,255,0.9);
+  nav.top-links{
+    display:flex; gap:22px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
   }
-  .hero-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 1rem;
-    padding: 0.9rem 1.4rem;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.22);
-    color: #fff;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    transition: transform 0.18s ease, background 0.18s ease;
+  nav.top-links a{
+    text-decoration:none;
+    color: var(--text-mute);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: color .2s ease, border-color .2s ease;
   }
-  .hero-link:hover {
-    background: rgba(255,255,255,0.2);
-    transform: translateY(-1px);
+  nav.top-links a:hover{ color: var(--gold); border-color: var(--gold); }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding: 90px 0 70px;
+    position: relative;
   }
-  .hero-link::after {
-    content: '→';
+  .eyebrow{
+    font-family: var(--mono);
     font-size: 13px;
-  }
-  .dot { width: 6px; height: 6px; border-radius: 50%; background: #5DCAA5; }
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 14px;
-    padding: 1.5rem 1.25rem 0;
-    max-width: 680px;
-    margin: 0 auto;
-  }
-  .stat {
-    background: var(--card);
-    border-radius: 20px;
-    padding: 18px 16px;
-    border: none;
-    box-shadow: 0 18px 30px rgba(15,14,23,0.06);
-    text-align: center;
-  }
-  .stat-n {
-    font-family: 'DM Serif Display', serif;
-    font-size: 28px;
-    color: var(--purple);
-    line-height: 1;
-  }
-  .stat-l { font-size: 11px; color: var(--muted); margin-top: 4px; }
-  .section {
-    max-width: 680px;
-    margin: 0 auto 1.5rem;
-    padding: 0 1.25rem;
-  }
-  .section-title {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    color: var(--muted);
+    color: var(--teal);
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-bottom: 10px;
-    display: flex; align-items: center; gap: 8px;
+    margin: 0 0 18px;
+    display:flex;
+    align-items:center;
+    gap: 10px;
   }
-  .section-title::after {
-    content: '';
-    flex: 1;
-    height: 0.5px;
-    background: var(--border);
+  .eyebrow::before{
+    content:"";
+    display:inline-block;
+    width: 26px; height: 1px;
+    background: var(--teal);
   }
-  .intro-card {
-    background: var(--card);
-    border-radius: 22px;
-    overflow: hidden;
-    box-shadow: 0 18px 30px rgba(15,14,23,0.05);
+  h1.name{
+    font-size: clamp(40px, 6vw, 68px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0 0 14px;
+    font-weight: 600;
   }
-  .intro-para {
-    padding: 1.2rem 1.35rem;
-    font-size: 15px;
-    line-height: 1.9;
-    color: var(--ink2);
-    border-bottom: 1px solid rgba(15,14,23,0.06);
+  h1.name .role{
+    display:block;
+    font-size: 0.36em;
+    font-weight: 500;
+    color: var(--text-mute);
+    letter-spacing: 0;
+    margin-top: 14px;
   }
-  .intro-para:last-child { border-bottom: none; }
-  .intro-para strong { color: var(--ink); font-weight: 600; }
-  .intro-label {
-    font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
-    color: var(--purple); text-transform: uppercase;
-    display: block; margin-bottom: 5px;
+  .lede{
+    max-width: 560px;
+    font-size: 17px;
+    color: var(--text-mute);
+    margin: 0 0 34px;
   }
-  .proj-card {
-    background: var(--card);
-    border-radius: 20px;
-    padding: 1.2rem 1.35rem;
-    margin-bottom: 14px;
+  .lede strong{ color: var(--text); font-weight: 600; }
+
+  .cta-row{ display:flex; gap:14px; flex-wrap: wrap; align-items:center; }
+  .btn{
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    padding: 12px 20px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    display:inline-flex;
+    align-items:center;
+    gap: 8px;
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn.primary{
+    background: var(--gold);
+    color: #14171a;
+    font-weight: 600;
+    border: 1px solid var(--gold);
+  }
+  .btn.primary:hover{ transform: translateY(-1px); background:#dcb433; }
+  .btn.ghost{
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--text-mute);
+  }
+  .btn.ghost:hover{ border-color: var(--teal); color: var(--teal); transform: translateY(-1px); }
+
+  /* floating tcode chips */
+  .chip-field{
+    position:absolute;
+    right: -10px;
+    top: 40px;
+    width: 340px;
+    height: 320px;
+    z-index: 0;
+    display: none;
+  }
+  @media (min-width: 880px){ .chip-field{ display:block; } }
+  .tchip{
+    position:absolute;
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 7px 12px;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--text-mute);
+    letter-spacing: 0.03em;
+    animation: drift 7s ease-in-out infinite;
+  }
+  .tchip.g{ border-color: rgba(201,162,39,0.4); color: var(--gold); }
+  .tchip.t{ border-color: rgba(79,169,168,0.4); color: var(--teal); }
+  @keyframes drift{
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .tchip{ animation: none; }
+  }
+
+  /* ---------- section framing ---------- */
+  section{
+    padding: 64px 0;
+    border-top: 1px solid var(--line);
     position: relative;
-    overflow: hidden;
-    box-shadow: 0 18px 30px rgba(15,14,23,0.06);
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
   }
-  .proj-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 22px 44px rgba(15,14,23,0.08);
+  .section-head{
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 36px;
+    gap: 20px;
+    flex-wrap: wrap;
   }
-  .proj-card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 4px;
-    border-radius: 0;
+  .section-head h2{
+    font-size: 26px;
+    font-weight: 600;
+    margin:0;
+    letter-spacing: -0.01em;
   }
-  .proj-card.current::before { background: var(--purple); }
-  .proj-card.prev::before { background: var(--teal); }
-  .proj-name { font-size: 15px; font-weight: 600; color: var(--ink); }
-  .proj-sub { font-size: 12px; color: var(--muted); margin: 3px 0 10px; }
-  .tags { display: flex; flex-wrap: wrap; gap: 7px; }
-  .tag {
-    font-size: 11px; font-weight: 500;
-    padding: 4px 10px; border-radius: 20px;
-    transition: transform 0.18s ease;
+  .section-tag{
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-faint);
+    letter-spacing: 0.06em;
   }
-  .tag:hover { transform: translateY(-1px); }
-  .tag-p { background: var(--purple-light); color: var(--purple); }
-  .tag-t { background: var(--teal-light); color: var(--teal); }
-  .tag-b { background: var(--blue-light); color: var(--blue); }
-  .tag-a { background: var(--amber-light); color: var(--amber); }
-  .proj-status {
-    position: absolute; top: 1rem; right: 1rem;
-    font-size: 10px; font-weight: 600;
-    padding: 3px 10px; border-radius: 20px;
+
+  /* ---------- about ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 48px;
+    align-items: start;
   }
-  .proj-status.active { background: var(--teal-light); color: var(--teal); }
-  .proj-status.done { background: var(--border); color: var(--muted); }
-  .skills-card {
-    background: var(--card);
-    border-radius: 22px;
-    padding: 1.35rem;
-    box-shadow: 0 18px 30px rgba(15,14,23,0.05);
+  @media (max-width: 720px){ .about-grid{ grid-template-columns: 1fr; } }
+  .about-grid p{ color: var(--text-mute); font-size: 15.5px; margin: 0 0 16px; }
+  .stat-panel{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px;
   }
-  .skill-group { margin-bottom: 16px; }
-  .skill-group:last-child { margin-bottom: 0; }
-  .skill-group-label {
-    font-size: 12px; color: var(--muted); font-weight: 500;
-    margin-bottom: 8px;
+  .stat-row{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
   }
-  .fc-wrap {
-    background: var(--card);
-    border-radius: 22px;
-    padding: 1.35rem;
-    box-shadow: 0 18px 30px rgba(15,14,23,0.05);
+  .stat-row:last-child{ border-bottom:none; }
+  .stat-row .k{ color: var(--text-faint); font-family: var(--mono); font-size: 12px; }
+  .stat-row .v{ color: var(--text); font-weight: 500; }
+
+  /* ---------- authorization matrix (signature element) ---------- */
+  .matrix-wrap{
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
   }
-  .fc-progress {
-    height: 3px;
-    background: var(--border);
-    border-radius: 2px;
-    margin-bottom: 1.25rem;
-    overflow: hidden;
+  table.matrix{
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 640px;
   }
-  .fc-bar {
-    height: 100%;
-    background: var(--purple);
-    border-radius: 2px;
-    transition: width 0.35s ease;
+  table.matrix th, table.matrix td{
+    padding: 16px 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
   }
-  .fc-scene { perspective: 900px; margin-bottom: 1rem; }
-  .fc-inner {
-    position: relative;
-    width: 100%; height: 160px;
-    transform-style: preserve-3d;
-    transition: transform 0.5s cubic-bezier(.4,0,.2,1);
-    cursor: pointer;
+  table.matrix thead th{
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--line);
   }
-  .fc-inner.flipped { transform: rotateY(180deg); }
-  .fc-face {
-    position: absolute; inset: 0;
-    backface-visibility: hidden;
-    border-radius: 14px;
-    padding: 1.25rem;
-    display: flex; flex-direction: column; justify-content: space-between;
+  table.matrix tbody tr:last-child td{ border-bottom:none; }
+  table.matrix tbody tr:hover{ background: rgba(255,255,255,0.015); }
+  .row-title{ font-weight: 600; color: var(--text); }
+  .row-sub{ display:block; color: var(--text-faint); font-size: 12.5px; font-weight:400; margin-top: 3px; }
+  .grant{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    font-size: 12px;
   }
-  .fc-front { background: var(--purple-light); border: 0.5px solid rgba(83,74,183,0.2); }
-  .fc-back { background: var(--teal-light); border: 0.5px solid rgba(15,110,86,0.2); transform: rotateY(180deg); }
-  .fc-q-text { font-size: 14px; font-weight: 500; color: var(--purple); line-height: 1.5; }
-  .fc-a-text { font-size: 13px; color: var(--teal); line-height: 1.6; }
-  .fc-tap { font-size: 11px; color: var(--purple-mid); opacity: 0.7; }
-  .fc-tap-back { font-size: 11px; color: var(--teal); opacity: 0.7; }
-  .fc-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
-  .fc-btn {
-    background: none;
-    border: 0.5px solid var(--border);
-    border-radius: 10px;
-    padding: 8px 18px;
-    font-size: 13px; font-family: 'DM Sans', sans-serif;
-    color: var(--ink2); cursor: pointer;
-    transition: background 0.15s;
+  .grant.on{ background: var(--teal-soft); color: var(--teal); border: 1px solid rgba(79,169,168,0.5); }
+  .grant.off{ background: transparent; color: var(--text-faint); border: 1px solid var(--line); }
+  .tcode-list{ display:flex; flex-wrap:wrap; gap: 6px; }
+  .tcode{
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gold);
+    background: var(--gold-soft);
+    padding: 3px 8px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(201,162,39,0.3);
   }
-  .fc-btn:hover { background: var(--light); }
-  .fc-count { font-size: 12px; color: var(--muted); }
-  .fc-dots { display: flex; gap: 5px; justify-content: center; margin-top: 10px; }
-  .fc-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border); transition: background 0.2s; }
-  .fc-dot.on { background: var(--purple); }
+
+  /* ---------- focus cards ---------- */
+  .card-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 720px){ .card-grid{ grid-template-columns: 1fr; } }
+  .fcard{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .fcard:hover{ border-color: rgba(79,169,168,0.4); transform: translateY(-2px); }
+  .fcard .tag{
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal);
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+    display:block;
+  }
+  .fcard h3{ margin: 0 0 10px; font-size: 17px; font-weight: 600; }
+  .fcard p{ margin:0 0 14px; color: var(--text-mute); font-size: 14px; }
+
+  /* ---------- connect ---------- */
+  .connect-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 720px){ .connect-grid{ grid-template-columns: repeat(2, 1fr); } }
+  .cnode{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px 18px;
+    text-decoration:none;
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .cnode:hover{ border-color: var(--gold); transform: translateY(-2px); }
+  .cnode .icon{ width: 20px; height:20px; color: var(--text-mute); }
+  .cnode:hover .icon{ color: var(--gold); }
+  .cnode .label{ font-size: 13px; color: var(--text-mute); }
+  .cnode .handle{ font-family: var(--mono); font-size: 13px; color: var(--text); font-weight: 500; }
+
+  footer{
+    padding: 40px 0 60px;
+    border-top: 1px solid var(--line);
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-faint);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
 </style>
 </head>
 <body>
 
-<div class="hero">
-  <div class="hero-inner">
-    <div class="avatar">SA</div>
-    <div class="hero-name">Sajid Ahmad</div>
-    <div class="hero-role">SAP Security &amp; GRC Consultant</div>
-    <div class="hero-badge">
-      <span class="dot"></span>
-      Capgemini &nbsp;·&nbsp; Since July 2021
-    </div>
-    <a class="hero-link" href="nontech.html">Explore non-technical interview Q&A</a>
-  </div>
-</div>
+<svg class="matrix-field" id="matrixField" xmlns="http://www.w3.org/2000/svg"></svg>
 
-<div class="stats">
-  <div class="stat">
-    <div class="stat-n">5+</div>
-    <div class="stat-l">Years IT Experience</div>
-  </div>
-  <div class="stat">
-    <div class="stat-n">3+</div>
-    <div class="stat-l">Years SAP Security</div>
-  </div>
-  <div class="stat">
-    <div class="stat-n">4</div>
-    <div class="stat-l">GRC Modules</div>
-  </div>
-  <div class="stat">
-    <div class="stat-n">2</div>
-    <div class="stat-l">Enterprise Projects</div>
-  </div>
-</div>
+<div class="wrap">
 
-<div class="section">
-  <div class="section-title">Interview introduction</div>
-  <div class="intro-card">
-    <div class="intro-para">
-      <span class="intro-label">Opening</span>
-      Good morning / afternoon. I'm <strong>Sajid Ahmad</strong>, an SAP Security and GRC Consultant with around <strong>5 years of IT experience</strong>, including more than 3 years specializing in SAP Security. I'm currently working with <strong>Capgemini</strong>, where I joined in July 2021.
-    </div>
-    <div class="intro-para">
-      <span class="intro-label">Expertise</span>
-      My core expertise covers <strong>SAP ECC, S/4HANA, Fiori Security</strong>, and <strong>SAP GRC Access Control</strong> — including ARA, ARM, EAM, and BRM. Day-to-day I handle user administration, role design, authorization troubleshooting, SU24 updates, transport management, and GRC workflow handling.
-    </div>
-    <div class="intro-para">
-      <span class="intro-label">Current project</span>
-      At <strong>GE Vernova</strong>, I'm working on an S/4HANA support project where I handle security role management, Fiori catalogs and spaces, OData service authorization, and day-to-day user access support. I also assist with <strong>SOX compliance</strong> and audit requirements.
-    </div>
-    <div class="intro-para">
-      <span class="intro-label">Previous project</span>
-      At <strong>Herff Jones</strong>, I handled end-to-end SAP Security implementation — Fiori configuration, GRC access management, and SoD risk mitigation.
-    </div>
-    <div class="intro-para">
-      <span class="intro-label">Strengths &amp; goal</span>
-      My strengths lie in authorization troubleshooting using <strong>SU53, ST01, and STAUTHTRACE</strong>, and collaborating with cross-functional teams for secure, compliant SAP solutions. I'm looking for an opportunity to deepen my expertise in S/4HANA and GRC.
-    </div>
-  </div>
-</div>
+  <header class="top">
+    <div class="badge-id"><span class="dot"></span> ACCESS&nbsp;LEVEL: CONSULTANT &nbsp;·&nbsp; STATUS: ACTIVE</div>
+    <nav class="top-links">
+      <a href="#focus">Focus</a>
+      <a href="#matrix">Skills</a>
+      <a href="#connect">Connect</a>
+    </nav>
+  </header>
 
-<div class="section">
-  <div class="section-title">Project experience</div>
-  <div class="proj-card current">
-    <span class="proj-status active">Current</span>
-    <div class="proj-name">GE Vernova</div>
-    <div class="proj-sub">S/4HANA Security Support</div>
-    <div class="tags">
-      <span class="tag tag-p">S/4HANA Security</span>
-      <span class="tag tag-p">Fiori Catalogs</span>
-      <span class="tag tag-p">OData Services</span>
-      <span class="tag tag-p">SOX Compliance</span>
-      <span class="tag tag-p">Authorization Design</span>
+  <section class="hero" style="border-top:none;">
+    <div class="chip-field">
+      <div class="tchip g" style="top:0; left:40px; animation-delay:0s;">PFCG · role maint.</div>
+      <div class="tchip" style="top:70px; left:180px; animation-delay:.6s;">SU24 · auth. object</div>
+      <div class="tchip t" style="top:150px; left:20px; animation-delay:1.2s;">GRAC · SoD review</div>
+      <div class="tchip" style="top:230px; left:160px; animation-delay:1.8s;">SUIM · user info</div>
+      <div class="tchip g" style="top:290px; left:60px; animation-delay:2.4s;">SPRO · IMG config</div>
     </div>
-  </div>
-  <div class="proj-card prev">
-    <span class="proj-status done">Previous</span>
-    <div class="proj-name">Herff Jones</div>
-    <div class="proj-sub">SAP Security Implementation</div>
-    <div class="tags">
-      <span class="tag tag-t">Role Administration</span>
-      <span class="tag tag-t">Fiori Config</span>
-      <span class="tag tag-t">GRC Access Mgmt</span>
-      <span class="tag tag-t">SoD Mitigation</span>
-    </div>
-  </div>
-</div>
 
-<div class="section">
-  <div class="section-title">Technical skills</div>
-  <div class="skills-card">
-    <div class="skill-group">
-      <div class="skill-group-label">SAP Platforms</div>
-      <div class="tags">
-        <span class="tag tag-b">SAP ECC</span>
-        <span class="tag tag-b">S/4HANA</span>
-        <span class="tag tag-b">Fiori Security</span>
+    <p class="eyebrow">SAP Security &amp; GRC Consultant</p>
+    <h1 class="name">Sajid Ahmad<span class="role">Access control, authorizations &amp; compliance across S/4HANA landscapes</span></h1>
+    <p class="lede">
+      <strong>4–7 years</strong> designing and hardening SAP authorization concepts —
+      from role builds in PFCG to Segregation of Duties reviews in GRC Access Control.
+      I work at the intersection of security, audit, and the business processes SAP runs on.
+    </p>
+    <div class="cta-row">
+      <a class="btn primary" href="https://www.linkedin.com/in/sajid-ahmad-81210432b/" target="_blank" rel="noopener">Connect on LinkedIn →</a>
+      <a class="btn ghost" href="#focus">View focus areas</a>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-head">
+      <h2>About</h2>
+      <span class="section-tag">01 · PROFILE</span>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>
+          I help organizations keep their SAP landscapes both usable and controlled — building
+          role designs that give people exactly the access their job requires, and no more.
+          That means translating business process into authorization objects, and translating
+          audit and compliance requirements into rule sets that actually hold up under review.
+        </p>
+        <p>
+          My day-to-day sits across GRC Access Control (risk analysis, emergency access, role
+          maintenance) and native S/4HANA and Fiori security — the two layers have to agree with
+          each other, or the controls don't mean anything.
+        </p>
+      </div>
+      <div class="stat-panel">
+        <div class="stat-row"><span class="k">EXPERIENCE</span><span class="v">4–7 years</span></div>
+        <div class="stat-row"><span class="k">CURRENT ROLE</span><span class="v">SAP Security &amp; GRC Consultant</span></div>
+        <div class="stat-row"><span class="k">ORGANIZATION</span><span class="v">Capgemini</span></div>
+        <div class="stat-row"><span class="k">CORE STACK</span><span class="v">S/4HANA · Fiori · GRC AC</span></div>
       </div>
     </div>
-    <div class="skill-group">
-      <div class="skill-group-label">GRC Modules</div>
-      <div class="tags">
-        <span class="tag tag-p">ARA</span>
-        <span class="tag tag-p">ARM</span>
-        <span class="tag tag-p">EAM</span>
-        <span class="tag tag-p">BRM</span>
-      </div>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-label">Troubleshooting tools</div>
-      <div class="tags">
-        <span class="tag tag-a">SU53</span>
-        <span class="tag tag-a">ST01</span>
-        <span class="tag tag-a">STAUTHTRACE</span>
-        <span class="tag tag-a">SU24</span>
-      </div>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-label">Compliance</div>
-      <div class="tags">
-        <span class="tag tag-t">SOX Compliance</span>
-        <span class="tag tag-t">Audit Support</span>
-        <span class="tag tag-t">SoD Risk Mitigation</span>
-      </div>
-    </div>
-  </div>
-</div>
+  </section>
 
-<div class="section">
-  <div class="section-title">Memory flashcards</div>
-  <div class="fc-wrap">
-    <div style="font-size:12px;color:var(--muted);margin-bottom:1rem">Tap card to flip · use arrows to navigate</div>
-    <div class="fc-progress"><div class="fc-bar" id="bar"></div></div>
-    <div class="fc-scene">
-      <div class="fc-inner" id="fc" onclick="flip()">
-        <div class="fc-face fc-front">
-          <div class="fc-q-text" id="fc-q"></div>
-          <div class="fc-tap">Tap to see answer ↺</div>
-        </div>
-        <div class="fc-face fc-back">
-          <div class="fc-a-text" id="fc-a"></div>
-          <div class="fc-tap-back">Tap to flip back ↺</div>
-        </div>
+  <section id="matrix">
+    <div class="section-head">
+      <h2>Authorization coverage</h2>
+      <span class="section-tag">02 · SKILL MATRIX</span>
+    </div>
+    <div class="matrix-wrap">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>Domain</th>
+            <th>Design</th>
+            <th>Build</th>
+            <th>Review / Audit</th>
+            <th>Relevant transactions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span class="row-title">GRC Access Control</span>
+              <span class="row-sub">ARA · EAM · BRM</span>
+            </td>
+            <td><span class="grant on">✓</span></td>
+            <td><span class="grant on">✓</span></td>
+            <td><span class="grant on">✓</span></td>
+            <td><div class="tcode-list"><span class="tcode">GRAC</span><span class="tcode">NWBC</span></div></td>
+          </tr>
+          <tr>
+            <td>
+              <span class="row-title">S/4HANA Authorizations</span>
+              <span class="row-sub">roles, objects, org levels</span>
+            </td>
+            <td><span class="grant on">✓</span></td>
+            <td><span class="grant on">✓</span></td>
+            <td><span class="grant on">✓</span></td>
+            <td><div class="tcode-list"><span class="tcode">PFCG</span><span class="tcode">SU24</span><span class="tcode">SU25</span></div></td>
+          </tr>
+          <tr>
+            <td>
+              <span class="row-title">Fiori Security</span>
+              <span class="row-sub">catalogs, groups, launchpad</span>
+            </td>
+            <td><span class="grant on">✓</span></td>
+            <td><span class="grant on">✓</span></td>
+            <td><span class="grant off">–</span></td>
+            <td><div class="tcode-list"><span class="tcode">/UI2/FLPD_CUST</span><span class="tcode">PFCG</span></div></td>
+          </tr>
+          <tr>
+            <td>
+              <span class="row-title">SoD &amp; Audit / Compliance</span>
+              <span class="row-sub">rule sets, risk remediation</span>
+            </td>
+            <td><span class="grant on">✓</span></td>
+            <td><span class="grant off">–</span></td>
+            <td><span class="grant on">✓</span></td>
+            <td><div class="tcode-list"><span class="tcode">SUIM</span><span class="tcode">GRAC</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="focus">
+    <div class="section-head">
+      <h2>Focus areas</h2>
+      <span class="section-tag">03 · WHERE I WORK</span>
+    </div>
+    <div class="card-grid">
+      <div class="fcard">
+        <span class="tag">GRAC · ARA / EAM / BRM</span>
+        <h3>GRC Access Control</h3>
+        <p>Configuring and running Access Risk Analysis, Emergency Access Management, and Business Role Management so risk gets caught before go-live, not after.</p>
+      </div>
+      <div class="fcard">
+        <span class="tag">PFCG · SU24 · SU25</span>
+        <h3>S/4HANA Authorizations</h3>
+        <p>Role design and rebuilds for S/4HANA — org-level structuring, derived roles, and cleanup of legacy authorization sprawl during upgrades.</p>
+      </div>
+      <div class="fcard">
+        <span class="tag">Launchpad · Catalogs</span>
+        <h3>Fiori Security</h3>
+        <p>Mapping business roles to Fiori catalogs and groups, and keeping front-end tile access aligned with back-end authorizations.</p>
+      </div>
+      <div class="fcard">
+        <span class="tag">SUIM · Rule sets</span>
+        <h3>SoD &amp; Audit / Compliance</h3>
+        <p>Segregation of Duties reviews, rule set tuning, and preparing access evidence that stands up to internal and external audit.</p>
       </div>
     </div>
-    <div class="fc-dots" id="fc-dots"></div>
-    <div class="fc-nav" style="margin-top:12px">
-      <button class="fc-btn" onclick="go(-1)">← Prev</button>
-      <span class="fc-count" id="fc-count"></span>
-      <button class="fc-btn" onclick="go(1)">Next →</button>
+  </section>
+
+  <section id="connect">
+    <div class="section-head">
+      <h2>Connect</h2>
+      <span class="section-tag">04 · CHANNELS</span>
     </div>
-  </div>
+    <div class="connect-grid">
+      <a class="cnode" href="https://www.linkedin.com/in/sajid-ahmad-81210432b/" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="8" y1="10" x2="8" y2="17"/><circle cx="8" cy="7" r="1"/><path d="M12 17v-4.5c0-1.4 1-2.5 2.3-2.5s2.2 1.1 2.2 2.5V17"/></svg>
+        <span class="label">LinkedIn</span>
+        <span class="handle">sajid-ahmad</span>
+      </a>
+      <a class="cnode" href="https://www.youtube.com/@Ghalibnama" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="6" width="19" height="12" rx="3"/><path d="M11 10l4 2-4 2z" fill="currentColor" stroke="none"/></svg>
+        <span class="label">YouTube</span>
+        <span class="handle">@Ghalibnama</span>
+      </a>
+      <a class="cnode" href="https://www.instagram.com/Ghalibanama1" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+        <span class="label">Instagram</span>
+        <span class="handle">@Ghalibanama1</span>
+      </a>
+      <a class="cnode" href="https://www.facebook.com/Ghalibnama" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 8h-2c-.8 0-1.5.7-1.5 1.5V11h3.5l-.5 3h-3v7h-3v-7H8v-3h1.5V9c0-2.2 1.6-4 3.8-4H15z"/></svg>
+        <span class="label">Facebook</span>
+        <span class="handle">Ghalibnama</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <span>SAJID AHMAD · SAP SECURITY &amp; GRC</span>
+    <span>SESSION LOGGED · NO CLIENT DATA DISPLAYED</span>
+  </footer>
+
 </div>
 
 <script>
-const cards = [
-  {
-    q: "What is your name and current role?",
-    a: "I'm Sajid Ahmad, an SAP Security and GRC Consultant at Capgemini, where I joined in July 2021."
-  },
-  {
-    q: "How many years of experience do you have?",
-    a: "Around 5 years of total IT experience, including 3+ years specializing in SAP Security and GRC consulting."
-  },
-  {
-    q: "Which SAP platforms have you worked on?",
-    a: "SAP ECC, S/4HANA, Fiori Security, and SAP GRC Access Control — covering ARA, ARM, EAM, and BRM modules."
-  },
-  {
-    q: "What are your day-to-day activities?",
-    a: "User administration, role design, authorization troubleshooting, SU24 updates, transport management, and GRC workflow handling."
-  },
-  {
-    q: "Tell me about your current project at GE Vernova.",
-    a: "S/4HANA security support project — handling role management, Fiori catalogs and spaces, OData service authorization, user access support, and SOX compliance assistance."
-  },
-  {
-    q: "Tell me about your Herff Jones project.",
-    a: "End-to-end SAP Security implementation including Fiori configuration, GRC access management, and SoD risk mitigation."
-  },
-  {
-    q: "What troubleshooting tools do you use?",
-    a: "SU53, ST01, and STAUTHTRACE for authorization troubleshooting. Also SU24 for maintaining authorization default values."
-  },
-  {
-    q: "What are you looking for in your next role?",
-    a: "To deepen my expertise in S/4HANA and GRC while contributing to meaningful security and compliance objectives."
-  }
-];
+  // Build a faint authorization-matrix grid as page background texture.
+  (function(){
+    const svg = document.getElementById('matrixField');
+    const ns = "http://www.w3.org/2000/svg";
+    const cols = 26, rows = 16, cell = 46;
+    svg.setAttribute('viewBox', `0 0 ${cols*cell} ${rows*cell}`);
+    svg.setAttribute('preserveAspectRatio', 'xMidYMin slice');
 
-let cur = 0, isFlipped = false;
-
-function render() {
-  document.getElementById('fc-q').textContent = cards[cur].q;
-  document.getElementById('fc-a').textContent = cards[cur].a;
-  document.getElementById('fc-count').textContent = (cur + 1) + ' of ' + cards.length;
-  document.getElementById('bar').style.width = Math.round(((cur + 1) / cards.length) * 100) + '%';
-  const dots = document.getElementById('fc-dots');
-  dots.innerHTML = '';
-  cards.forEach((_, i) => {
-    const d = document.createElement('span');
-    d.className = 'fc-dot' + (i === cur ? ' on' : '');
-    dots.appendChild(d);
-  });
-  document.getElementById('fc').classList.toggle('flipped', isFlipped);
-}
-
-function flip() { isFlipped = !isFlipped; document.getElementById('fc').classList.toggle('flipped'); }
-
-function go(dir) { isFlipped = false; cur = (cur + dir + cards.length) % cards.length; render(); }
-
-render();
+    for(let r=0;r<rows;r++){
+      for(let c=0;c<cols;c++){
+        const x = c*cell + cell/2;
+        const y = r*cell + cell/2;
+        const roll = Math.random();
+        if(roll > 0.94){
+          const dot = document.createElementNS(ns,'circle');
+          dot.setAttribute('cx', x);
+          dot.setAttribute('cy', y);
+          dot.setAttribute('r', 2.1);
+          dot.setAttribute('fill', roll > 0.97 ? '#c9a227' : '#4fa9a8');
+          dot.setAttribute('opacity', '0.55');
+          svg.appendChild(dot);
+        } else if (roll > 0.90) {
+          const dot = document.createElementNS(ns,'circle');
+          dot.setAttribute('cx', x);
+          dot.setAttribute('cy', y);
+          dot.setAttribute('r', 1.3);
+          dot.setAttribute('fill', '#2b333d');
+          svg.appendChild(dot);
+        }
+      }
+    }
+    // faint hairlines
+    for(let c=0;c<=cols;c+=4){
+      const line = document.createElementNS(ns,'line');
+      line.setAttribute('x1', c*cell); line.setAttribute('x2', c*cell);
+      line.setAttribute('y1', 0); line.setAttribute('y2', rows*cell);
+      line.setAttribute('stroke', '#1c222a'); line.setAttribute('stroke-width', '1');
+      svg.appendChild(line);
+    }
+    for(let r=0;r<=rows;r+=3){
+      const line = document.createElementNS(ns,'line');
+      line.setAttribute('y1', r*cell); line.setAttribute('y2', r*cell);
+      line.setAttribute('x1', 0); line.setAttribute('x2', cols*cell);
+      line.setAttribute('stroke', '#1c222a'); line.setAttribute('stroke-width', '1');
+      svg.appendChild(line);
+    }
+  })();
 </script>
+
 </body>
 </html>
